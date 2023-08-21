@@ -22,12 +22,23 @@ if __name__ == "__main__":
     todos_data = todos_response.json()
     user_response = requests.get(user_url)
     user_data = user_response.json()
+    completed_tasks = 0
+    total_tasks = 0
+    count_tasks = 0
+    employee_name = user_data.get("name")
+    for todo in todos_data:
+        if todo["userId"] == user_id:
+            count_tasks += 1
+            if todo["completed"] is True:
+                completed_tasks += 1
+
+    file_name = '{}.csv'.format(user_data.get('id'))
 
     with open(f"{user_id}.csv", "w") as f:
-        writer = csv.writer(f, quoting=csv.QUOTE_ALL)
+        writer = csv.writer(f, quotechar='"', quoting=csv.QUOTE_ALL)
         for todo in todos_data:
             if todo["userId"] == user_id:
-                writer.writerow([user_id,
-                                 user_data.get("username"),
-                                 todo["completed"],
-                                 todo["title"]])
+                writer.writerow([user_data.get('id'),
+                                 user_data.get('username'),
+                                 todo.get('completed'),
+                                 todo.get('title')])
