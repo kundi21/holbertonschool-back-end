@@ -13,15 +13,15 @@ import urllib
 if __name__ == "__main__":
     if len(sys.argv) != 2:
         sys.exit(1)
-    
+
     user_id = int(sys.argv[1])
     todos_url = f"https://jsonplaceholder.typicode.com/todos?userId={user_id}"
     user_url = f"https://jsonplaceholder.typicode.com/users/{user_id}"
-    
+
     todos_response = requests.get(todos_url)
     todos_data = todos_response.json()
     user_response = requests.get(user_url)
-    user_data = user_response.json()    
+    user_data = user_response.json()
     completed_tasks = 0
     total_tasks = 0
     count_tasks = 0
@@ -38,4 +38,3 @@ if __name__ == "__main__":
     for todo in todos_data:
         if todo["userId"] == user_id and todo["completed"] is True:
             print("\t {}".format(todo["title"]))
-    
