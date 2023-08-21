@@ -25,7 +25,6 @@ if __name__ == "__main__":
     completed_tasks = 0
     total_tasks = 0
     count_tasks = 0
-
     employee_name = user_data.get("name")
     for todo in todos_data:
         if todo["userId"] == user_id:
